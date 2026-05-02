@@ -1,7 +1,10 @@
 "use client"
 
+import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader, SheetDescription } from "../ui/sheet";
 import { Menu } from "lucide-react";
+import { motion } from "framer-motion";
+import ScrollObserver from "@/hooks/ScrollObserver";
 
 interface items {
     href: string;
@@ -12,6 +15,8 @@ interface props {
 }
 
 const NavBarSheet = ( { items }: props) => {
+    const [active, setActive] = useState<string>(items[0].href)
+    ScrollObserver(setActive)
     return (
         <Sheet>
           <SheetTrigger asChild>
@@ -26,7 +31,12 @@ const NavBarSheet = ( { items }: props) => {
             </SheetHeader>
             <nav className="flex flex-col gap-6 mt-8 items-start ml-6">
               {items.map((item) => (
-                <a href={item.href} key={item.href}>{item.label}</a>
+                <div key={item.href} className="relative" onClick={() => setActive(item.href)}>
+                  {active === item.href && (
+                      <motion.span layoutId="sideline" className="absolute -left-1 w-0.5 h-full bg-foreground rounded-full" />
+                  )}
+                  <a className='ml-1' href={'#' + item.href}>{item.label}</a>
+                </div>
               ))}
             </nav>
           </SheetContent>
