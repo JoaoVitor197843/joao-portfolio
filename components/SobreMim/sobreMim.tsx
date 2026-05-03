@@ -10,13 +10,13 @@ const SobreMim = () => {
             1 ano de experiência, com projetos deployados em produção.</p>
             <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 px-10 gap-10 items-center">
                 <div className="flex items-center justify-center h-full">
-                    <Image src={'/perfil.jpeg'} width={400} height={400} alt="João Vitor" />
+                    <Image src={'/perfil.jpeg'} width={400} height={400} alt="João Vitor" className="object-cover rounded-xl"/>
                 </div>
                 <div className="flex flex-col justify-center">
                     <div className="flex items-start justify-center mb-10 text-3xl">
                         <h1>Skills</h1>
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 justify-center items-center">
+                    <div className="grid grid-cols-1 min-[373]:grid-cols-2 sm:grid-cols-3 gap-4 justify-center items-center">
                         <div className="flex items-center gap-2 border border-white/20 rounded-lg px-3 py-2">
                             <SiPython size={20}/>
                             <p> Python</p>

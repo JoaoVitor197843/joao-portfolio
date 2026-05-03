@@ -1,6 +1,7 @@
 import NavBar from "@/components/navbar/navbar";
 import Hero from "@/components/Hero/hero";
 import SobreMim from "@/components/SobreMim/sobreMim";
+import Projetos from "@/components/Projetos/Projetos";
 const items = [
   {href: 'home', label: 'Home'},
   {href: 'sobre-mim', label: 'Sobre Mim'},
@@ -13,6 +14,7 @@ export default function Home() {
       <NavBar items={items}/>
       <Hero />
       <SobreMim />
+      <Projetos />
     </>
   );
 }

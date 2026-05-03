@@ -1,12 +1,12 @@
 "use client"
 import { useEffect } from "react";
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction, RefObject } from "react";
 
-const ScrollObserver = (setActive: Dispatch<SetStateAction<string>>) => useEffect(() => {
+const useScrollObserver = (setActive: Dispatch<SetStateAction<string>>, isScrolling: RefObject<boolean>) => useEffect(() => {
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && !isScrolling?.current) {
                     setActive(entry.target.id)
                 }
             })
@@ -18,6 +18,6 @@ const ScrollObserver = (setActive: Dispatch<SetStateAction<string>>) => useEffec
         observer.observe(div)
     });
     return () => observer.disconnect()
-}, [setActive])
+}, [setActive, isScrolling])
 
-export default ScrollObserver
+export default useScrollObserver

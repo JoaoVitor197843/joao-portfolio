@@ -1,10 +1,10 @@
 "use client"
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader, SheetDescription } from "../ui/sheet";
 import { Menu } from "lucide-react";
 import { motion } from "framer-motion";
-import ScrollObserver from "@/hooks/ScrollObserver";
+import useScrollObserver from "@/hooks/ScrollObserver";
 
 interface items {
     href: string;
@@ -16,7 +16,17 @@ interface props {
 
 const NavBarSheet = ( { items }: props) => {
     const [active, setActive] = useState<string>(items[0].href)
-    ScrollObserver(setActive)
+    const isScrolling = useRef<boolean>(false)
+    const onScrollEnd = () => {
+      isScrolling.current = false
+    }
+    const handleNavClick = (href: string) => {
+      isScrolling.current = true;
+      setActive(href);
+      window.removeEventListener('scrollend', onScrollEnd)
+      window.addEventListener('scrollend', onScrollEnd, {once: true})
+    }
+    useScrollObserver(setActive, isScrolling)
     return (
         <Sheet>
           <SheetTrigger asChild>
@@ -31,7 +41,7 @@ const NavBarSheet = ( { items }: props) => {
             </SheetHeader>
             <nav className="flex flex-col gap-6 mt-8 items-start ml-6">
               {items.map((item) => (
-                <div key={item.href} className="relative" onClick={() => setActive(item.href)}>
+                <div key={item.href} className="relative" onClick={() => handleNavClick(item.href)}>
                   {active === item.href && (
                       <motion.span layoutId="sideline" className="absolute -left-1 w-0.5 h-full bg-foreground rounded-full" />
                   )}

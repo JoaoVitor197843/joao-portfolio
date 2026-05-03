@@ -1,9 +1,9 @@
 "use client"
 
-import ScrollObserver from "@/hooks/ScrollObserver";
+import useScrollObserver from "@/hooks/ScrollObserver";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 
 interface items {
@@ -15,11 +15,21 @@ interface props {
 }
 const NavBarMenu = ( { items }: props) =>  {
     const [active, setActive] = useState<string>(items[0].href);
-    ScrollObserver(setActive);
+    const isScrolling = useRef<boolean>(false);
+    const onScrollEnd = () => {
+      isScrolling.current = false
+    }
+    const handleNavClick = (href: string) => {
+      isScrolling.current = true;
+      setActive(href);
+      window.removeEventListener('scrollend', onScrollEnd)
+      window.addEventListener('scrollend', onScrollEnd, {once: true})
+    }
+    useScrollObserver(setActive, isScrolling);
     return (
     <div className="hidden md:flex items-center justify-center gap-8 text-muted-foreground">
         {items.map((item) => (
-          <div key={item.href} className="relative" onClick={() => setActive(item.href)}>
+          <div key={item.href} className="relative" onClick={() => handleNavClick(item.href)}>
             <Button asChild variant={'ghost'}>
               <a href={'#' + item.href}>{item.label}</a>
             </Button>
