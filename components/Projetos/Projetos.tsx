@@ -14,11 +14,11 @@ const Projetos = () => {
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">Projetos</h1>
             </div>
 
-            <Card className="max-w-2xl mx-auto overflow-hidden border-white/20 bg-white/5
+            <Card className="w-full max-w-md sm:max-w-2xl mx-auto overflow-hidden border-white/20 bg-white/5
                              hover:border-white/40 hover:-translate-y-1 transition-all duration-200">
                 <div className="relative w-full aspect-video">
                     <Image
-                        className="object-cover rounded-lg"
+                        className="object-cover rounded-xl"
                         src="/WhyleFinance.png"
                         fill
                         sizes="(max-width: 768px) 100vw, 672px"
