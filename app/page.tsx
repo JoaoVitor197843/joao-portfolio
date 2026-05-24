@@ -6,7 +6,6 @@ const items = [
   {href: 'home', label: 'Home'},
   {href: 'sobre-mim', label: 'Sobre Mim'},
   {href: 'projetos', label: 'Projetos'},
-  {href: 'servicos', label: 'Serviços'},
 ]
 export default function Home() {
   return (

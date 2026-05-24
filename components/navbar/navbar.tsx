@@ -1,6 +1,7 @@
 import { Button } from "../ui/button";
 import NavBarMenu from "./navbarMenu";
 import NavBarSheet from "./navbarMobileSheet";
+import DialogContatos from "../Contatos/contatosDialog";
 
 interface items {
     href: string;
@@ -21,9 +22,11 @@ const NavBar = ( { items }: props) => {
       </div>
       <NavBarMenu items={items}/>
       <div className="hidden md:flex items-center justify-end">
-        <Button asChild  size={'sm'} className="hover:border-border">
-          <a href="#">Contatos</a>
+        <DialogContatos>
+          <Button  size={'sm'} className="hover:border-border">
+            Contatos
           </Button>
+        </DialogContatos>
       </div>
     </nav>
     )
